@@ -1,47 +1,48 @@
-import React, { useLayoutEffect, useState } from 'react'
-import { agencyData } from '../../../Global/Data/Homepage'
-import { NavLink } from 'react-router-dom';
+import React, { useLayoutEffect, useState } from "react";
+import { agencyData } from "../../../Global/Data/Homepage";
+import { NavLink } from "react-router-dom";
 const Hero = () => {
   const [agencyNum, setAgencyNum] = useState(10);
 
   const updateAgencyNum = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth <= 767) {
-      setAgencyNum(10)
-    }
-    else if (screenWidth <= 1023) {
-      setAgencyNum(6)
-    }
-    else if (screenWidth <= 1279) {
-      setAgencyNum(8)
+      setAgencyNum(10);
+    } else if (screenWidth <= 1023) {
+      setAgencyNum(6);
+    } else if (screenWidth <= 1279) {
+      setAgencyNum(8);
     } else {
-      setAgencyNum(10)
+      setAgencyNum(10);
     }
-  }
+  };
   useLayoutEffect(() => {
     updateAgencyNum();
-    window.addEventListener('resize', updateAgencyNum);
+    window.addEventListener("resize", updateAgencyNum);
     return () => {
-      window.removeEventListener('resize', updateAgencyNum);
-    }
-  }, [])
+      window.removeEventListener("resize", updateAgencyNum);
+    };
+  }, []);
 
   return (
-    <section className='hero-wrapper bg-waves section-break'>
+    <section className="hero-wrapper bg-waves section-break">
       <div className="container mx-auto">
         <div className="heading-wrapper mb-6">
-          <h1 className='heading'>Agency Directory</h1>
+          <h1 className="heading">Agency Directory</h1>
         </div>
         <div className="hero-content text-center max-w-[1140px] mx-auto relative py-6">
-          <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 items-center gap-6">
+          <div className="flex flex-wrap -mx-3 gap-y-3">
             {agencyData
-              .filter(item => item.rating >= 1)
+              .filter((item) => item.rating >= 1)
               .sort((a, b) => b.rating - a.rating)
               .slice(0, agencyNum)
               .map((item, index) => (
-                <div className='xl:col-auto col-span-1' key={index}>
+                <div
+                  className="xl:w-1/5 lg:w-1/4 md:w-1/3  w-1/2 h-full px-3"
+                  key={index}
+                >
                   <div className="hero-box">
-                    <NavLink to={'/'}>
+                    <NavLink to={"/"}>
                       <figure>
                         <img src={item.logo} alt={item.name} />
                       </figure>
@@ -51,17 +52,16 @@ const Hero = () => {
                 </div>
               ))}
           </div>
-          <div className='absolute -top-[15%] -left-[18%] xl:block hidden'>
+          <div className="absolute -top-[15%] -left-[18%] xl:block hidden">
             <img src="./assets/images/hero.png" alt="" />
           </div>
-          <div className='absolute bottom-0 -right-[18%] xl:block hidden'>
+          <div className="absolute bottom-0 -right-[18%] xl:block hidden">
             <img src="./assets/images/hero1.png" alt="" />
           </div>
         </div>
       </div>
     </section>
-  )
+  );
+};
 
-}
-
-export default Hero
+export default Hero;
